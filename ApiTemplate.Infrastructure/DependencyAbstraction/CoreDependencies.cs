@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using ApiTemplate.Application.Helpers;
+using ApiTemplate.Infrastructure.Helpers;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +11,11 @@ namespace ApiTemplate.Infrastructure.DependencyAbstraction
 {
     public static class CoreDependencies
     {
-
-
-        public static IServiceCollection ImplementCoreDependencies(this IServiceCollection service)
+        public static IServiceCollection ImplementCoreDependencies(this IServiceCollection services)
         {
-            
+            services.AddSingleton<ILoggerHelper, LoggerHelper>();
 
-            return service;
+            return services;
         }
     }
 }
