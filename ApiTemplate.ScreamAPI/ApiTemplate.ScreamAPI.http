@@ -1,0 +1,6 @@
+@ApiTemplate.ScreamAPI_HostAddress = http://localhost:5101
+
+GET {{ApiTemplate.ScreamAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
