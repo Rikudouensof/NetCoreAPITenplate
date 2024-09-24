@@ -12,12 +12,12 @@ namespace ApiTemplate.Domain.Models.ApiModels
     {
         [Required]
         [Display(Name = "Username")]
-        public string UserName { get; private set; } = "";
+        public string UserName { get;  set; } = "";
 
         [Required]
         [MinLength(8)]
         [Display(Name = "Password")]
-        public string Password { get; private set; } = "";
+        public string Password { get;  set; } = "";
 
 
         public LoginModel(string username, string password)

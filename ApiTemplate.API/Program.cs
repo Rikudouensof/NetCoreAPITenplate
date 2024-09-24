@@ -4,6 +4,8 @@ using NLog.Extensions.Logging;
 using NLog;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using ApiTemplate.Application.Helpers;
+using ApiTemplate.API.APIServices;
 
 namespace ApiTemplate.API
 {
@@ -31,6 +33,7 @@ namespace ApiTemplate.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddSingleton<IAppsettingGeneratorHelper, AppsettingGeneratorHelper>();
             //Inegrate Core Layer Dependencies
             builder.Services.ImplementCoreDependencies();
             builder.Services.ImplementFluentValidations();
@@ -91,6 +94,7 @@ namespace ApiTemplate.API
 
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseMiddleware<RemoveServerHeaderMiddleware>();
