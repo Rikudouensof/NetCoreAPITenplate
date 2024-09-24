@@ -2,6 +2,7 @@ using ApiTemplate.Infrastructure.Helpers;
 using ApiTemplate.Infrastructure.DependencyAbstraction;
 using NLog.Extensions.Logging;
 using NLog;
+using FluentValidation.AspNetCore;
 
 namespace ApiTemplate.API
 {
@@ -31,6 +32,7 @@ namespace ApiTemplate.API
             builder.Services.AddSwaggerGen();
             //Inegrate Core Layer Dependencies
             builder.Services.ImplementCoreDependencies();
+            builder.Services.ImplementFluentValidations();
             //Handle Logging system
             builder.Services.AddLogging(
                builder =>
@@ -43,6 +45,9 @@ namespace ApiTemplate.API
             NLogLoggerProvider nlogProv = new NLogLoggerProvider(nlpopts);
             ILoggerProvider castLoggerProvider = nlogProv as ILoggerProvider;
             builder.Services.AddSingleton<ILoggerProvider>(castLoggerProvider);
+
+            //Fluent Services
+            
 
             //Add Cors system
             builder.Services.AddCors(options =>
