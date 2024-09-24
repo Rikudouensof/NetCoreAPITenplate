@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.IdentityModel.Tokens.Jwt;
+using ApiTemplate.Application.Services;
+using ApiTemplate.Infrastructure.Services;
 
 
 namespace ApiTemplate.Infrastructure.DependencyAbstraction
@@ -26,8 +28,8 @@ namespace ApiTemplate.Infrastructure.DependencyAbstraction
             //Direct Dependency Integrations
             services.AddSingleton<ILoggerHelper, LoggerHelper>();
             services.AddSingleton<IGenerateJwtTokenHelper, GenerateJwtTokenHelper>();
-            services.AddScoped<IEncryptionHelper, EncryptionHelper>(provider => new EncryptionHelper(encryptionSetting.DirectEncyptPrivateKeyPath,encryptionSetting.DirectEncyptPublicKeyPath, _appsettingGeneratorHelper));
-
+            // services.AddScoped<IEncryptionHelper, EncryptionHelper>(provider => new EncryptionHelper(encryptionSetting.DirectEncyptPrivateKeyPath,encryptionSetting.DirectEncyptPublicKeyPath, _appsettingGeneratorHelper));
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
 
             //Server Configuration
             services.PostConfigure<KestrelServerOptions>(options =>

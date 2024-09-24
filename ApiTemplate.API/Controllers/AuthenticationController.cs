@@ -13,13 +13,13 @@ namespace ApiTemplate.API.Controllers
     public class AuthenticationController : ControllerBase
     {
         private ILoggerHelper _logger;
-        private IEncryptionHelper _encryptionHelper;
+        //private IEncryptionHelper _encryptionHelper;
         private IAuthenticationService _authService;
         private string className = nameof(AuthenticationController);
-        public AuthenticationController(ILoggerHelper logger, IEncryptionHelper encryptionHelper, IAuthenticationService authService)
+        public AuthenticationController(ILoggerHelper logger, IAuthenticationService authService)
         {
             _logger = logger;
-            _encryptionHelper = encryptionHelper;
+           // _encryptionHelper = encryptionHelper;
             _authService = authService;
         }
 
