@@ -8,7 +8,7 @@ namespace ApiTemplate.Domain.Models.CoreModels
 {
     public class JWTSettings
     {
-        public string JWTIssuer { get; set; } = string.Empty;
-        public string JWTAudience { get; set; } = string.Empty;
+        public string? JWTIssuer { get; set; } = string.Empty;
+        public string? JWTAudience { get; set; } = string.Empty;
     }
 }

@@ -17,17 +17,27 @@ namespace ApiTemplate.Infrastructure.Helpers
         private IAppsettingGeneratorHelper _appsettingGenerator;
         public EncryptionHelper(string privateKeyPath, string publicKeyPath, IAppsettingGeneratorHelper appsettingGenerator)
         {
-            _rsa = RSA.Create();
-
-            // Import the private key
-            var privateKey = System.IO.File.ReadAllText(privateKeyPath);
-            _rsa.ImportFromPem(privateKey.ToCharArray());
-
-            // Import the public key
-            var publicKey = System.IO.File.ReadAllText(publicKeyPath);
-            _rsa.ImportFromPem(publicKey.ToCharArray());
-
             _appsettingGenerator = appsettingGenerator;
+            try
+            {
+                _rsa = RSA.Create();
+
+                // Import the private key
+                var privateKey = System.IO.File.ReadAllText(privateKeyPath);
+                _rsa.ImportFromEncryptedPem(privateKey.ToCharArray(), "12345");
+
+                // Import the public key
+                var publicKey = System.IO.File.ReadAllText(publicKeyPath);
+                _rsa.ImportFromPem(publicKey.ToCharArray());
+
+             
+            }
+            catch (Exception ex)
+            {
+
+                
+            }
+           
         }
 
         public string EncryptPassword(string password)

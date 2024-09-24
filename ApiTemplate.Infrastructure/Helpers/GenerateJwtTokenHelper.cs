@@ -14,8 +14,14 @@ namespace ApiTemplate.Infrastructure.Helpers
 
     public class GenerateJwtTokenHelper : IGenerateJwtTokenHelper
     {
+        private IAppsettingGeneratorHelper _appsettingGeneratorHelper;
+        public GenerateJwtTokenHelper(IAppsettingGeneratorHelper appsettingGeneratorHelper)
+        {
+            _appsettingGeneratorHelper = appsettingGeneratorHelper;
+        }
         public string GenerateJwtToken(string username)
         {
+            var jwtSetting = _appsettingGeneratorHelper.GetJWTSettings();
             var rsa = GeneralGeneratorHelpers.GenerateUserSpecificKey(username);
             var credentials = new SigningCredentials(new RsaSecurityKey(rsa), SecurityAlgorithms.RsaSha256);
 
@@ -26,8 +32,8 @@ namespace ApiTemplate.Infrastructure.Helpers
     };
 
             var token = new JwtSecurityToken(
-                issuer: "YourIssuer",
-                audience: "YourAudience",
+                issuer: jwtSetting.JWTIssuer,
+                audience: jwtSetting.JWTAudience,
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: credentials);

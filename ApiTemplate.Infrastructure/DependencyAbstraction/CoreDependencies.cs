@@ -14,7 +14,7 @@ namespace ApiTemplate.Infrastructure.DependencyAbstraction
     {
 
         private static IAppsettingGeneratorHelper _appsettingGeneratorHelper;
-        public static void Configue(IAppsettingGeneratorHelper appsettingGeneratorHelper)
+        public static void Configure(IAppsettingGeneratorHelper appsettingGeneratorHelper)
         {
             _appsettingGeneratorHelper = appsettingGeneratorHelper;
         }

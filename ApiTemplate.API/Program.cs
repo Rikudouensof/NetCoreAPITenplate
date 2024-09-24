@@ -34,6 +34,12 @@ namespace ApiTemplate.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<IAppsettingGeneratorHelper, AppsettingGeneratorHelper>();
+
+
+            //Ensure dependecny setup
+            var appsettingGeneratorHelper = builder.Services.BuildServiceProvider().GetRequiredService<IAppsettingGeneratorHelper>();
+            CoreDependencies.Configure(appsettingGeneratorHelper);
+
             //Inegrate Core Layer Dependencies
             builder.Services.ImplementCoreDependencies();
             builder.Services.ImplementFluentValidations();
