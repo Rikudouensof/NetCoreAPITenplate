@@ -2,6 +2,7 @@ using ApiTemplate.Infrastructure.Helpers;
 using ApiTemplate.Infrastructure.DependencyAbstraction;
 using NLog.Extensions.Logging;
 using NLog;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 
 namespace ApiTemplate.API
@@ -33,6 +34,8 @@ namespace ApiTemplate.API
             //Inegrate Core Layer Dependencies
             builder.Services.ImplementCoreDependencies();
             builder.Services.ImplementFluentValidations();
+
+
             //Handle Logging system
             builder.Services.AddLogging(
                builder =>
@@ -46,7 +49,7 @@ namespace ApiTemplate.API
             ILoggerProvider castLoggerProvider = nlogProv as ILoggerProvider;
             builder.Services.AddSingleton<ILoggerProvider>(castLoggerProvider);
 
-            //Fluent Services
+            
             
 
             //Add Cors system
@@ -78,6 +81,8 @@ namespace ApiTemplate.API
                 context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
                 context.Response.Headers.Add("X-Frame-Options", "DENY");
                 context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+                context.Response.Headers.Add("server", "hidden");
+                context.Response.Headers.Add("date", "hidden");
                 await next();
             });
 

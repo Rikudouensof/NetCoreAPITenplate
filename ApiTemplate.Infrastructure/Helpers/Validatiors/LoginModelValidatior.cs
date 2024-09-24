@@ -18,7 +18,8 @@ namespace ApiTemplate.Infrastructure.Helpers.Validatiors
             RuleFor(x => x.Password)
            .Matches(@"\d").WithMessage("'Password' must contain at least one number.");
             RuleFor(x => x.Password)
-            .Matches(@"[!@#$%^&*(),.?\").WithMessage("'Password' must contain at least one acceptable password symbol.");
+            .Matches(@"[!@#$%^&*(),.?\\[\]]") // Corrected pattern
+            .WithMessage("Password must contain at least one special character.");
 
             //For checking against SQL Injection
             RuleFor(x => x.UserName)

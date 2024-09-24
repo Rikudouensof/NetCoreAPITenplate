@@ -1,5 +1,6 @@
 ﻿using ApiTemplate.Application.Helpers;
 using ApiTemplate.Infrastructure.Helpers;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,10 @@ namespace ApiTemplate.Infrastructure.DependencyAbstraction
         public static IServiceCollection ImplementCoreDependencies(this IServiceCollection services)
         {
             services.AddSingleton<ILoggerHelper, LoggerHelper>();
+            services.PostConfigure<KestrelServerOptions>(options =>
+            {
+                options.AddServerHeader = false;
+            });
 
             return services;
         }
