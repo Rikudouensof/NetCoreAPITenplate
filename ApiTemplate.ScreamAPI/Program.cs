@@ -16,6 +16,19 @@ namespace ApiTemplate.ScreamAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //Add Cors system
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("MyAllowSpecificOrigins",
+                    policy =>
+                    {
+                        policy.WithOrigins("https://example.com")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
+                    });
+            });
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -34,6 +47,9 @@ namespace ApiTemplate.ScreamAPI
                 await next();
             });
 
+            // Use the CORS policy globaly
+            app.UseCors("MyAllowSpecificOrigins");
+            app.UseHttpsRedirection();
             app.UseAuthorization();
 
             app.UseMiddleware<RemoveServerHeaderMiddleware>();

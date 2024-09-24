@@ -16,6 +16,18 @@ namespace ApiTemplate.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            //Add Cors system
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("MyAllowSpecificOrigins",
+                    policy =>
+                    {
+                        policy.WithOrigins("https://example.com")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
+                    });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -25,8 +37,22 @@ namespace ApiTemplate.API
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
 
+
+            //Hide Header Params
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+                context.Response.Headers.Add("X-Frame-Options", "DENY");
+                context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+                await next();
+            });
+
+            // Use the CORS policy globaly
+            app.UseCors("MyAllowSpecificOrigins");
+
+
+            app.UseHttpsRedirection();
             app.UseAuthorization();
 
             app.UseMiddleware<RemoveServerHeaderMiddleware>();
