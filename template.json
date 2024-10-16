@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Rikudou En Sof",
+  "classifications": [ "Web", "Api" ],
+  "identity": "ApiTemplate",
+  "name": "API Clean Architecture Template",
+  "shortName": "APICAtemplate",
+  "sourceName": "ApiTemplate",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "preferNameDirectory": true
+
+
+}
