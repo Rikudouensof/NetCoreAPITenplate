@@ -10,7 +10,26 @@
     "language": "C#",
     "type": "solution"
   },
-  "preferNameDirectory": true
+  "preferNameDirectory": true,
+  "symbols": {
+    "Framwork": {
+      "type": "parameter",
+      "description": "tergetFramework for the project",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "net6.0"
+        },
+        {
+          "choice": "net8.0"
+        },
+        {
+          "choice": "net9.0"
+        }
+      ],
+      "replaces": "{TargetFramework}"
+    }
+  }
 
 
 }
